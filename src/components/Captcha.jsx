@@ -24,7 +24,6 @@ const FriendlyCaptcha = ({setVerified}) => {
         errorCallback: errorCallback 
       });
     }
-console.log(widget)
     return () => {
       if (widget.current !== undefined) widget.current.reset();
     }
