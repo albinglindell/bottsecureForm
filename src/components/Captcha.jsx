@@ -27,7 +27,7 @@ const FriendlyCaptcha = ({setVerified}) => {
     return () => {
       if (widget.current !== undefined) widget.current.reset();
     }
-  }, [container]);
+  }, [widget]);
 
   return (
     <div className="captcha">

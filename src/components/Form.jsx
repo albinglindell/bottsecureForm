@@ -10,7 +10,6 @@ import FriendlyCaptcha from './Captcha';
 function Form() {
     
     let [verified, setVerified] = useState(false)
-    useEffect(()=>{console.log(verified)},[verified])
     let honeypotVal = useRef()
     let emailVal = useRef()
     let firstnameVal = useRef()
