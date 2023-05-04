@@ -26,7 +26,7 @@ const FriendlyCaptcha = ({setVerified}) => {
     }
 console.log(widget)
     return () => {
-      if (widget.current != undefined) widget.current.reset();
+      if (widget.current !== undefined) widget.current.reset();
     }
   }, [container]);
 
