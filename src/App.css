@@ -10,6 +10,7 @@
 }
 h1{
   font-weight: 100;
+  margin-bottom: 10%;
 }
 a.toFormBtn{
 text-decoration: none;
@@ -61,6 +62,7 @@ textarea{
 input:focus, textarea:focus{
   border-bottom: 5px solid #ffa580;
 }
+
 
 button, .toFormBtn{
   display: block;

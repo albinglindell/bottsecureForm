@@ -2,14 +2,14 @@ import React, {  useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import "friendly-challenge/widget";
 import FriendlyCaptcha from './Captcha';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 function Form() {
     const allowedReferrers = 'http://localhost:3000/';
-
+    const navigate = useNavigate()
     let [verified, setVerified] = useState(false)
     let honeypotVal = useRef()
     let emailVal = useRef()
@@ -46,7 +46,7 @@ function Form() {
         if(!email.match(mailformat)){
             alert("Wrong email input.")
         }else{
-            if(!honeypotVal.current.checked && verified && isRefererValid()){
+            if(!honeypotVal.current.checked && verified && isRefererValid() && firstname && lastname && message){
                 emailjs.send('service_jmqxk3i', 'template_yd4w6ec', templateParams, "kMi5D9DgjqxUwzDKN")
                 .then(function(response) {
                    console.log('SUCCESS!', response.status, response.text);
@@ -57,6 +57,7 @@ function Form() {
                 firstnameVal.current.value= ""
                 lastnameVal.current.value= ""
                 messageVal.current.value= ""
+                navigate("/sent")
             }
         }
 
@@ -71,23 +72,23 @@ function Form() {
                 <h1>Albins bottsäkra bokningsformulär</h1>
                 <div className="thermsOfService">
                     <label htmlFor="thermsOfService">Accept therms of service</label>
-                    <input ref={honeypotVal} type="checkbox" id="thermsOfService" />
+                    <input required ref={honeypotVal} type="checkbox" id="thermsOfService" />
                 </div>
             <div>
                 <label htmlFor="firstname">Firstname:</label>
-                <input ref={firstnameVal} type="text" id='firstname' placeholder='John'/>
+                <input required ref={firstnameVal} type="text" id='firstname' placeholder='John'/>
             </div>
             <div>
                 <label htmlFor="lastname">Lastname:</label>
-                <input ref={lastnameVal} type="text" id='lastname' placeholder='Doe'/>
+                <input required ref={lastnameVal} type="text" id='lastname' placeholder='Doe'/>
             </div>
             <div>
                 <label htmlFor="email">Email:</label>
-                <input ref={emailVal} type="text" id='email' placeholder='Johndoe72@email.com'/>
+                <input required ref={emailVal} type="text" id='email' placeholder='Johndoe72@email.com'/>
             </div>
             <div className='messageContainer'>
                 <label htmlFor="message">Message:</label>
-                <textarea ref={messageVal} id="message" cols="30" rows="10" placeholder='Your message here'></textarea>
+                <textarea required ref={messageVal} id="message" cols="30" rows="10" placeholder='Your message here'></textarea>
             </div>
             <button onClick={sendFunc}>Send message</button>
         </form>
