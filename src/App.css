@@ -5,11 +5,20 @@
   box-sizing: border-box;
 }
 
-.Honeypot{
+.thermsOfService{
   visibility: hidden;
 }
 h1{
   font-weight: 100;
+}
+a.toFormBtn{
+text-decoration: none;
+padding: 10px 15px;
+font-weight: bold;
+color: rgb(24, 24, 24);
+}
+a:hover{
+  padding: 12px 17px;
 }
 body{
   display: flex;
@@ -23,7 +32,7 @@ body{
   background-repeat: no-repeat;
   background-position: center;
 }
-form{
+.form{
   background-color: #f8f4e5;
   border: 2px solid rgba(0,0,0,1);
   padding:50px 100px;
@@ -53,7 +62,7 @@ input:focus, textarea:focus{
   border-bottom: 5px solid #ffa580;
 }
 
-button{
+button, .toFormBtn{
   display: block;
   margin: 0 auto;
   line-height: 14pt * 2;

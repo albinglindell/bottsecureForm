@@ -19,7 +19,7 @@ const FriendlyCaptcha = ({setVerified}) => {
   useEffect(() => {
     if (!widget.current && container.current) {
       widget.current = new WidgetInstance(container.current, { 
-        startMode: "auto",
+        startMode: "focus",
         doneCallback: doneCallback,
         errorCallback: errorCallback 
       });
@@ -27,7 +27,7 @@ const FriendlyCaptcha = ({setVerified}) => {
     return () => {
       if (widget.current !== undefined) widget.current.reset();
     }
-  }, [widget]);
+  }, [container]);
 
   return (
     <div className="captcha">

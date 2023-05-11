@@ -8,7 +8,8 @@ import FriendlyCaptcha from './Captcha';
 
 
 function Form() {
-    
+    const allowedReferrers = 'http://localhost:3000/';
+
     let [verified, setVerified] = useState(false)
     let honeypotVal = useRef()
     let emailVal = useRef()
@@ -16,43 +17,61 @@ function Form() {
     let lastnameVal = useRef()
     let messageVal = useRef()
 
+    function isRefererValid() {
+        let referrer = document.referrer;
+        console.log(referrer)
+          if (referrer === allowedReferrers) {
+            return true;
+          }
+        
+        return false;
+      }
     let sendFunc = (e)=>{
+
+        let mailformat = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        e.preventDefault()
         let email =  emailVal.current.value
         let firstname =  firstnameVal.current.value
         let lastname = lastnameVal.current.value
         let message =  messageVal.current.value
 
+      
         var templateParams = {
             email,
             firstname,
             lastname,
             message
         };
-
-        e.preventDefault()
-        if(!honeypotVal.current.checked && verified){
-            emailjs.send('service_jmqxk3i', 'template_yd4w6ec', templateParams, "kMi5D9DgjqxUwzDKN")
-            .then(function(response) {
-               console.log('SUCCESS!', response.status, response.text);
-            }, function(error) {
-               console.log('FAILED...', error);
-            });
-            emailVal.current.value = ""
-            firstnameVal.current.value= ""
-            lastnameVal.current.value= ""
-            messageVal.current.value= ""
+        if(!email.match(mailformat)){
+            alert("Wrong email input.")
+        }else{
+            if(!honeypotVal.current.checked && verified && isRefererValid()){
+                emailjs.send('service_jmqxk3i', 'template_yd4w6ec', templateParams, "kMi5D9DgjqxUwzDKN")
+                .then(function(response) {
+                   console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                   console.log('FAILED...', error);
+                });
+                emailVal.current.value = ""
+                firstnameVal.current.value= ""
+                lastnameVal.current.value= ""
+                messageVal.current.value= ""
+            }
         }
+
 
     };
 
   return (
-    <div> 
+    <div className='form'> 
+
         <form>
 
                 <h1>Albins bottsäkra bokningsformulär</h1>
-                <div className="Honeypot">
-                    <label htmlFor="honeyPot">Accept therms of service</label>
-                    <input ref={honeypotVal} type="checkbox" id="honeyPot" />
+                <div className="thermsOfService">
+                    <label htmlFor="thermsOfService">Accept therms of service</label>
+                    <input ref={honeypotVal} type="checkbox" id="thermsOfService" />
                 </div>
             <div>
                 <label htmlFor="firstname">Firstname:</label>
@@ -71,8 +90,8 @@ function Form() {
                 <textarea ref={messageVal} id="message" cols="30" rows="10" placeholder='Your message here'></textarea>
             </div>
             <button onClick={sendFunc}>Send message</button>
-            <FriendlyCaptcha setVerified={setVerified}/>
         </form>
+        <FriendlyCaptcha setVerified={setVerified}/>
        
     </div>
   )
