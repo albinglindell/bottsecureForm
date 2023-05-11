@@ -12,7 +12,7 @@ Därefter kör du en install på följande vis:
 
 ### `npm install`
 
-När allt är instalerat är det bara att starta upp projektet med följande kommando:
+När allt är installerat är det bara att starta upp projektet med följande kommando:
 
 ### `npm start`
 
